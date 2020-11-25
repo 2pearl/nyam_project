@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/signupLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/back"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/signuptitletext"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:gravity="center|left"
+        android:text="일반 회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/signupContentLayout"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/signupIdSpace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/stdemailEditText"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textColorHint="#414141" />
+
+            <Button
+                android:id="@+id/idCheckBtn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="#DD9E9E"
+                android:text="인증" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/stdpasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/stdnameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/stdNumEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="학번"
+            android:inputType="phone"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/stdphoneNumEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="전화번호"
+            android:inputType="phone"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/genderTextBox"
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="성별"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/genderRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/genderMaleRadioBtn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checked="true"
+                    android:text="남"
+                    android:textColor="#000000" />
+
+                <RadioButton
+                    android:id="@+id/genderFemaleRadioBtn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="여"
+                    android:textColor="#000000" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/stdCardTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:text="학생증 사진을 첨부해주세요."
+            android:textColor="#000000"
+            android:textColorHint="#414141"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:text="가입하기"
+            android:textSize="18sp"
+            app:backgroundTint="#DD9E9E" />
+
+    </LinearLayout>
+</LinearLayout>

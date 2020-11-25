@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:gravity="center|left"
+        android:text="업체 회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/resemailEditText"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="이메일"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000"
+                android:textColorHint="#414141" />
+
+            <Button
+                android:id="@+id/idCheckBtn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="중복확인"
+                app:backgroundTint="#DD9E9E" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/respasswordEditText"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:textColor="#000000"
+                android:textColorHint="#414141" />
+
+            <Button
+                android:id="@+id/passwordCheckBtn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="양식확인"
+                app:backgroundTint="#DD9E9E" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/resbusinessEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="업체명"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/resnameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="가입자명"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/resphonenumEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="전화번호"
+            android:inputType="phone"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/resaddressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="업체주소"
+            android:inputType="textPostalAddress"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <EditText
+            android:id="@+id/resbusinessnumEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="사업자번호"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textColorHint="#414141" />
+
+        <Button
+            android:id="@+id/ressignUpButton"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:text="가입하기"
+            android:textSize="18sp"
+            app:backgroundTint="#DD9E9E" />
+
+    </LinearLayout>
+
+</LinearLayout>
