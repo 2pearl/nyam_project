@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 
-public class WithdrawActivity extends AppCompatActivity {
+public class assignActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     int Cuser_id,Cuser_authority;
@@ -31,11 +31,11 @@ public class WithdrawActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdrawuser);
+        setContentView(R.layout.activity_assign);
 
         mAuth = FirebaseAuth.getInstance();
 
-        findViewById(R.id.withdrawuserButton).setOnClickListener(onClickListener);
+        findViewById(R.id.assignmemBtn).setOnClickListener(onClickListener);
 
         Intent intent=getIntent();
         Cuser_id=intent.getIntExtra("Cuser_id",0);
@@ -51,46 +51,26 @@ public class WithdrawActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.withdrawuserButton:
-                    withdraw();
+                case R.id.assignmemBtn:
+                    assignment();
                     break;
             }
         }
     };
 
-    private void withdraw() {
-        mAuth.getCurrentUser().delete();
-        myStartActivity(MainActivity.class, Cuser_id, Cuser_authority);
+    private void assignment() {
+        myStartActivity(StudentActivity.class, Cuser_id, Cuser_authority);
 
-        String phone_num = ((EditText) findViewById(R.id.PhonenumWDEditText)).getText().toString();
+        String phone_num = ((EditText) findViewById(R.id.assignphonenumEditText)).getText().toString();
 
-        FirebaseDatabase mDatabase;
-        mDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("std_user").child(phone_num);
 
-        mDatabase.getReference().child("res_user").child(phone_num).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startToast("삭제 완료");
-            }
-        }).addOnFailureListener(new OnFailureListener(){
-            @Override
-            public void onFailure(@NonNull Exception e){
-                startToast("삭제 실패");
-            }
-        });
+        DatabaseReference myRef2 = myRef.child("assign count");
 
-        mDatabase.getReference().child("std_user").child(phone_num).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startToast("삭제 완료");
-            }
-        }).addOnFailureListener(new OnFailureListener(){
-            @Override
-            public void onFailure(@NonNull Exception e){
-                startToast("삭제 실패");
-            }
-        });
+        myRef2.setValue(1);
 
+        startToast("신고가 완료되었습니다.");
 
     }
 

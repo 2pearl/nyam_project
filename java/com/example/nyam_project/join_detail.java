@@ -1,12 +1,9 @@
 package com.example.nyam_project;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,11 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class join_detail extends AppCompatActivity {
 
@@ -28,6 +22,13 @@ public class join_detail extends AppCompatActivity {
     String postDate;
     String peopleNum;
     String peopleGen;
+
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), join_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class join_detail extends AppCompatActivity {
                     startActivity(iintent);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -88,17 +89,24 @@ public class join_detail extends AppCompatActivity {
         delB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                // startActivity(new Intent(join_detail.this,join_show_list.class));
                 if(Cuser_id==user_id){
 
                     Task<Void> Database = FirebaseDatabase.getInstance()
                             .getReference("/JoinBoard/"+post_num).removeValue();
-                    startActivity(new Intent(join_detail.this,join_show_list.class));
+                    myStartActivity(join_show_list.class, Cuser_id, Cuser_authority);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+
+        Button gochat=(Button)findViewById(R.id.buttonR_J);
+        gochat.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                myStartActivity(JoinbeforechatActivity.class, Cuser_id, Cuser_authority);
             }
         });
 
@@ -106,7 +114,10 @@ public class join_detail extends AppCompatActivity {
         backJ.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                myStartActivity(join_show_list.class,Cuser_id,Cuser_authority);
+                Intent iiiintent= new Intent(getApplicationContext(), join_show_list.class);
+                iiiintent.putExtra("Cuser_id",Cuser_id);
+                iiiintent.putExtra("Cuser_authority",Cuser_authority);
+                startActivity(iiiintent);
             }
         });
 

@@ -2,7 +2,6 @@ package com.example.nyam_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,17 +11,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class promo_detail extends AppCompatActivity {
     int post_num,Cuser_id,Cuser_authority,user_id;
     String postName,postContents,postKind,resName,resPhone,resAddr;
 
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), promo_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class promo_detail extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                if(Cuser_id==user_id){//작성자만 수정가능
+                if(Cuser_id==user_id){
                     Intent intent= new Intent(getApplicationContext(), promo_edit.class);
 
                     intent.putExtra("Cuser_id",Cuser_id);
@@ -82,7 +82,7 @@ public class promo_detail extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,14 +91,14 @@ public class promo_detail extends AppCompatActivity {
         delB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                // startActivity(new Intent(join_detail.this,join_show_list.class));
-                if(Cuser_id==user_id){//작성자만 삭제가능
+
+                if(Cuser_id==user_id){
                     Task<Void> Database = FirebaseDatabase.getInstance()
                             .getReference("/PromoBoard/"+post_num).removeValue();
-                    startActivity(new Intent(promo_detail.this,promo_show_list.class));
+                    myStartActivity(promo_show_list.class,Cuser_id,Cuser_authority);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -107,7 +107,7 @@ public class promo_detail extends AppCompatActivity {
         backP.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                myStartActivity(notice_show_list.class,Cuser_id,Cuser_authority);
+                myStartActivity(promo_show_list.class,Cuser_id,Cuser_authority);
             }
         });
 

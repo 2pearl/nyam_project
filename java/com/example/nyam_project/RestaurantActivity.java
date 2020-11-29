@@ -52,11 +52,6 @@ public class RestaurantActivity extends AppCompatActivity {
         }
     };
 
-    /*private void myStartActivity(Class c) {
-        Intent intent = new Intent(this, c);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }*/
     private void myStartActivity(Class c,int Cuser_id, int Cuser_authority) {
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

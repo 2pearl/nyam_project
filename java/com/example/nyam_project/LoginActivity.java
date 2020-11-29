@@ -25,8 +25,9 @@ import java.util.Iterator;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-
     int user_id,user_authority;
+    int flag=10;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.loginButton).setOnClickListener(onClickListener);
-        //findViewById(R.id.findIDButton).setOnClickListener(onClickListener);
         findViewById(R.id.findPWButton).setOnClickListener(onClickListener);
     }
 
@@ -52,11 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                 case R.id.loginButton:
                     login();
                     break;
-                //case R.id.findIDButton:
-                //    myStartActivity(FindIDActivity.class);
-                //    break;
                 case R.id.findPWButton:
-                    //myStartActivity(FindPWActivity.class);
+                    myStartActivity2(FindPWActivity.class);
                     break;
             }
         }
@@ -74,9 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task){
-                            if(task.isSuccessful()){
+                            if(task.isSuccessful() == true){
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                startToast("로그인에 성공했습니다");
 
                                 DatabaseReference databaseReference;
 
@@ -86,9 +82,15 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot){
                                         Iterator<DataSnapshot> child=dataSnapshot.getChildren().iterator();
 
+                                        flag++;
+
                                         while(child.hasNext()){
                                             if(child.next().getKey().equals(phone_num)){
-                                                myStartActivity(RestaurantActivity.class,Integer.parseInt(phone_num),2);
+                                                //myStartActivity(RestaurantActivity.class,Integer.parseInt(phone_num),2);
+                                                flag = 1;
+                                                move_main(flag, user, phone_num);
+                                                Log.d("여기는", "flag1");
+                                                finish();
                                             }
                                         }
                                     }
@@ -98,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
 
+
                                 databaseReference = FirebaseDatabase.getInstance().getReference("std_user");
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener(){
                                     @Override
@@ -106,8 +109,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                         while(child.hasNext()){
                                             if(child.next().getKey().equals(phone_num)){
-                                                myStartActivity(StudentActivity.class,Integer.parseInt(phone_num),1);
-                                                Log.d("확인",phone_num);
+                                               // myStartActivity(StudentActivity.class,Integer.parseInt(phone_num),1);
+                                                flag = 2;
+                                                move_main(flag, user, phone_num);
+                                                Log.d("여기는", "flag2");
+                                                finish();
                                             }
                                         }
                                     }
@@ -125,7 +131,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                         while(child.hasNext()){
                                             if(child.next().getKey().equals(phone_num)){
-                                                myStartActivity(AdminActivity.class,Integer.parseInt(phone_num),0);
+                                                //myStartActivity(AdminActivity.class,Integer.parseInt(phone_num),0);
+                                                flag = 3;
+                                                move_main(flag, user, phone_num);
+                                                Log.d("여기는", "flag3");
+                                                finish();
                                             }
                                         }
                                     }
@@ -134,17 +144,47 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                 });
+
                             }
                             else{
-                                if(task.getException()!=null){
+                                if(task.getException().equals(null)){
                                     startToast(task.getException().toString());
                                 }
+                            }
+
+                            Log.d("여기는", "flag 밖");
+                            if(flag == 10){
+                                Log.d("여기는","flag==10");
+                            }
+                            else if(flag == 11) {
+                                Log.d("여기는","flag==11");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                user.delete();
+                                startToast("신고로 인해 사용이 제한된 계정입니다");
+                                myStartActivity2(MainActivity.class);
                             }
                         }
                     });
         }
         else{
             startToast("ID 또는 PW를 입력해 주세요");
+        }
+    }
+
+    private void move_main(int flag, FirebaseUser user, String phone_num){
+        switch (flag){
+            case 1:
+                startToast("로그인에 성공했습니다");
+                myStartActivity(RestaurantActivity.class,Integer.parseInt(phone_num),2);
+                break;
+            case 2:
+                startToast("로그인에 성공했습니다");
+                myStartActivity(StudentActivity.class,Integer.parseInt(phone_num),1);
+                break;
+            case 3:
+                startToast("로그인에 성공했습니다");
+                myStartActivity(AdminActivity.class,Integer.parseInt(phone_num),0);
+                break;
         }
     }
 
@@ -157,6 +197,12 @@ public class LoginActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("Cuser_id",user_id);
         intent.putExtra("Cuser_authority",user_authority);
+        startActivity(intent);
+    }
+
+    private void myStartActivity2(Class c) {
+        Intent intent = new Intent(this, c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

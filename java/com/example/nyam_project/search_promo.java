@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,16 +21,23 @@ import java.util.ArrayList;
 
 public class search_promo extends AppCompatActivity {
 
-    ListView jlistView;
-    ArrayList<Join_board> jlist=new ArrayList<>();
-    ItemAdapter IAdapter;
+    ListView plistView;
+    ArrayList<Promo_board> plist=new ArrayList<>();
+    p_ItemAdapter IAdapter;
     int Cuser_id,Cuser_authority;
     String searchName;
+
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), promo_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_join);
+        setContentView(R.layout.activity_search_promo);
 
         Intent intent=getIntent();
         Cuser_id=intent.getIntExtra("Cuser_id",0);
@@ -39,38 +47,46 @@ public class search_promo extends AppCompatActivity {
 
         this.initDB();
 
-        jlistView = (ListView)findViewById(R.id.ResultList_J);
-        IAdapter = new ItemAdapter(this,jlist);
-        jlistView.setAdapter(IAdapter);
+        plistView = (ListView)findViewById(R.id.ResultList_P);
+        IAdapter = new p_ItemAdapter(this,plist);
+        plistView.setAdapter(IAdapter);
 
-        jlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        plistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent iintent= new Intent(getApplicationContext(), join_detail.class);
+                Intent iintent= new Intent(getApplicationContext(), promo_detail.class);
 
                 iintent.putExtra("Cuser_id",Cuser_id);
                 iintent.putExtra("Cuser_authority",Cuser_authority);
 
-                iintent.putExtra("user_id",jlist.get(position).user_id);
-                iintent.putExtra("post_num",jlist.get(position).getpost_num());
-                iintent.putExtra("post_name",jlist.get(position).getpost_name());
-                iintent.putExtra("post_contents",jlist.get(position).getpost_contents());
-
-                iintent.putExtra("post_date",jlist.get(position).getPost_date());
-                iintent.putExtra("people_num",jlist.get(position).getPeople_num());
-                iintent.putExtra("user_gender",jlist.get(position).getUser_gender());
+                iintent.putExtra("user_id",plist.get(position).user_id);
+                iintent.putExtra("post_num",plist.get(position).getPostnum());
+                iintent.putExtra("post_name",plist.get(position).getPostname());
+                iintent.putExtra("post_contents",plist.get(position).getContents());
+                iintent.putExtra("post_kind",plist.get(position).getPostkind());
+                iintent.putExtra("res_name",plist.get(position).getRes_name());
+                iintent.putExtra("res_phone",plist.get(position).getRes_phone());
+                iintent.putExtra("res_addr",plist.get(position).getRes_addr());
 
                 startActivity(iintent);
             }
         });
-
-
+        ImageButton SbackN = (ImageButton)findViewById(R.id.searchback_P);
+        SbackN.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent iiiintent= new Intent(getApplicationContext(), promo_show_list.class);
+                iiiintent.putExtra("Cuser_id",Cuser_id);
+                iiiintent.putExtra("Cuser_authority",Cuser_authority);
+                startActivity(iiiintent);
+            }
+        });
     }
 
     public void initDB(){
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("JoinBoard");
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("PromoBoard");
 
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,34 +96,31 @@ public class search_promo extends AppCompatActivity {
                     String post_name=ds.child("post_name").getValue(String.class);
 
                     if(post_name.contains(searchName)){
+
                         int user_id=ds.child("user_id").getValue(Integer.class);
-                        String people_num = ds.child("people_num").getValue(String.class);
-                        String post_contents = ds.child("post_contents").getValue(String.class);
-                        // = ds.child("post_name").getValue(String.class);
                         int post_num = ds.child("post_num").getValue(Integer.class);
-                        String post_date = ds.child("post_date").getValue(String.class);
-                        String user_gender = ds.child("user_gender").getValue(String.class);
+                        String post_contents = ds.child("post_contents").getValue(String.class);
+                        String post_kind=ds.child("post_kind").getValue(String.class);
+                        String res_name=ds.child("res_name").getValue(String.class);
+                        String res_phone=ds.child("res_phone").getValue(String.class);
+                        String res_addr=ds.child("res_addr").getValue(String.class);
 
-                        Join_board j=new Join_board(post_num,people_num,user_gender, post_date, post_name, post_contents,user_id);
-                        jlist.add(j);
+                        Promo_board p=new Promo_board(post_num, post_name, post_contents,post_kind,user_id,res_name,res_phone,res_addr);
+
+                        plist.add(p);
                         IAdapter.notifyDataSetChanged();
-                        IAdapter.addItem(j);
+                        IAdapter.addItem(p);
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(), "검색결과가 없습니다", Toast.LENGTH_LONG).show();
-                    }
-
                 }
-
+                if(plist.size()==0){
+                    Toast.makeText(getApplicationContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
     private void myStartActivity(Class c,int Cuser_id, int Cuser_authority) {
         Intent intent = new Intent(this, c);
@@ -116,5 +129,4 @@ public class search_promo extends AppCompatActivity {
         intent.putExtra("Cuser_authority",Cuser_authority);
         startActivity(intent);
     }
-
 }

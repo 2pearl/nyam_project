@@ -32,6 +32,7 @@ public class signUpResActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.ressignUpButton).setOnClickListener(onClickListener);
+        findViewById(R.id.resEmailCheckBtn).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -49,6 +50,10 @@ public class signUpResActivity extends AppCompatActivity {
                 case R.id.ressignUpButton:
                     ressignUp();
                     break;
+                case R.id.resEmailCheckBtn:
+                    emailCheck();
+                    break;
+
             }
         }
     };
@@ -81,11 +86,14 @@ public class signUpResActivity extends AppCompatActivity {
                     }
                 });
 
-        if(email.length() == 0 || password.length() == 0 || res_name.length() == 0 || name.length() == 0 || phone_num.length() == 0 || address.length() == 0 || business_num.length() == 0){
-            Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+        if(email.length() == 0 || res_name.length() == 0 || name.length() == 0 || phone_num.length() == 0 || address.length() == 0 || business_num.length() == 0){
+            Toast.makeText(getApplicationContext(), "빈 칸 없이 작성해 주세요.", Toast.LENGTH_SHORT).show();
+        }
+        if(password.length()<6){
+            Toast.makeText(getApplicationContext(),"비밀번호는 6자리 이상 입력해 주세요.",Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("res_user").child(phone_num);
@@ -109,7 +117,22 @@ public class signUpResActivity extends AppCompatActivity {
             myStartActivity(MainActivity.class);
         }
     }
+    private void emailCheck() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
 
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                            Toast.makeText(signUpResActivity.this, "이메일이 발송되었습니다. 메일함을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Log.d(TAG, "not");
+                    }
+                });
+    }
     private void myStartActivity(Class c) {
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

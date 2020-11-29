@@ -2,7 +2,6 @@ package com.example.nyam_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,6 +26,13 @@ public class promo_edit extends AppCompatActivity {
     EditText pname,pcontents,presname,presphone,presaddr;
     Button button1;
 
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), promo_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +43,11 @@ public class promo_edit extends AppCompatActivity {
         Pkindspinner = findViewById(R.id.Epkind);
         ArrayAdapter pkindAdapter = ArrayAdapter.createFromResource(this, R.array.Pkind, R.layout.spinner_item);
         pkindAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Pkindspinner.setAdapter(pkindAdapter); //어댑터에 연결해줍니다.
+        Pkindspinner.setAdapter(pkindAdapter);
 
 
-        pname=(EditText) findViewById(R.id.EpName);//제목
-        pcontents=(EditText)findViewById(R.id.Epcontents);//본문
+        pname=(EditText) findViewById(R.id.EpName);
+        pcontents=(EditText)findViewById(R.id.Epcontents);
 
         presname=(EditText)findViewById(R.id.EpresName);
         presphone=(EditText)findViewById(R.id.Epresphone);
@@ -64,7 +68,7 @@ public class promo_edit extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.Epeditb) ;
         button1.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View view) {//입력값 가져온다
+            public void onClick(View view) {
 
                 String pnameS=pname.getText().toString();
                 String pcontentsS=pcontents.getText().toString();
@@ -74,27 +78,26 @@ public class promo_edit extends AppCompatActivity {
                 String resaddrS=presaddr.getText().toString();
 
                 if(selectedPkind.equals(null)){
-                    Toast.makeText(promo_edit.this,"종류를 선택하세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"종류를 선택하세요",Toast.LENGTH_SHORT).show();
                 }
                 else if(resaddrS.equals("")){
-                    Toast.makeText(promo_edit.this,"위치를 선택해 주세요.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"위치를 선택해 주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else if(pnameS.equals("")){
-                    Toast.makeText(promo_edit.this,"제목을 입력해 주세요.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"제목을 입력해 주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else if(resphoneS.equals("")){
-                    Toast.makeText(promo_edit.this,"전화번호를 입력해 주세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"전화번호를 입력해 주세요",Toast.LENGTH_SHORT).show();
                 }
                 else if(pcontentsS.equals(""))   {
-                    Toast.makeText(promo_edit.this,"내용을 입력해 주세요.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"내용을 입력해 주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else if(resnameS.equals("")){
-                    Toast.makeText(promo_edit.this,"이름을 입력해 주세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(promo_edit.this,"이름을 입력해 주세요",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     DatabaseReference Database = FirebaseDatabase.getInstance().getReference();
                     HashMap<String,Object> newpost=new HashMap();
-
 
                     Promo_board j=new Promo_board(post_num,pnameS,pcontentsS,selectedPkind,Cuser_id,resnameS,resphoneS,resaddrS);
                     Map<String,Object> userValue=j.toMap();
@@ -108,11 +111,8 @@ public class promo_edit extends AppCompatActivity {
                     iiintent.putExtra("Cuser_authority",Cuser_authority);
 
                     startActivity(iiintent);
-                    //startActivity(new Intent(promo_edit.this,promo_show_list.class));
                 }
             }
         });
-
     }
-
 }

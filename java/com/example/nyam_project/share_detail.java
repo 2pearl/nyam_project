@@ -17,6 +17,12 @@ public class share_detail extends AppCompatActivity {
     int post_num,Cuser_id,Cuser_authority,user_id;
     String postName,postContents,shareKind,shareWay,sharePlace;
 
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), share_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +57,7 @@ public class share_detail extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                if(Cuser_id==user_id){//작성자만 수정가능
+                if(Cuser_id==user_id){
                     Intent iintent= new Intent(getApplicationContext(), share_edit.class);
 
                     iintent.putExtra("Cuser_id",Cuser_id);
@@ -67,7 +73,7 @@ public class share_detail extends AppCompatActivity {
                     startActivity(iintent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -75,17 +81,22 @@ public class share_detail extends AppCompatActivity {
         delB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                // startActivity(new Intent(join_detail.this,join_show_list.class));
-                if(Cuser_id==user_id){//작성자만 삭제가능
+                if(Cuser_id==user_id){
                     Task<Void> Database = FirebaseDatabase.getInstance()
                             .getReference("/ShareBoard/"+post_num).removeValue();
-                    startActivity(new Intent(share_detail.this,share_show_list.class));
+                    myStartActivity(SharebeforechatActivity.class, Cuser_id, Cuser_authority);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-
+        Button gochat=(Button)findViewById(R.id.button_S);
+        gochat.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                myStartActivity(SharebeforechatActivity.class, Cuser_id, Cuser_authority);
             }
         });
 
@@ -93,7 +104,10 @@ public class share_detail extends AppCompatActivity {
         backS.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                myStartActivity(share_show_list.class,Cuser_id,Cuser_authority);
+                Intent iiiintent= new Intent(getApplicationContext(), share_show_list.class);
+                iiiintent.putExtra("Cuser_id",Cuser_id);
+                iiiintent.putExtra("Cuser_authority",Cuser_authority);
+                startActivity(iiiintent);
             }
         });
     }

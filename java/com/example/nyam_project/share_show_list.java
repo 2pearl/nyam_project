@@ -2,7 +2,6 @@ package com.example.nyam_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,8 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +31,19 @@ public class share_show_list extends AppCompatActivity {
 
     EditText sname;
 
+    public void onBackPressed(){
+        switch (Cuser_authority){
+            case 0:
+                myStartActivity(AdminActivity.class,Cuser_id,Cuser_authority);
+                break;
+            case 1:
+                myStartActivity(StudentActivity.class,Cuser_id,Cuser_authority);
+                break;
+            case 2:
+                myStartActivity(RestaurantActivity.class,Cuser_id,Cuser_authority);
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,6 @@ public class share_show_list extends AppCompatActivity {
         Intent intent=getIntent();
         Cuser_id=intent.getIntExtra("Cuser_id",0);
         Cuser_authority=intent.getIntExtra("Cuser_authority",0);
-
 
         this.initDB();
 
@@ -81,12 +90,11 @@ public class share_show_list extends AppCompatActivity {
 
                 String searchnameS=sname.getText().toString();
 
-                if(searchnameS==""||searchnameS==null){
-                    Toast.makeText(getApplicationContext(), "검색어를 입력하세요", Toast.LENGTH_LONG).show();
+                if(searchnameS.equals("")){
+                    Toast.makeText(getApplicationContext(), "검색어를 입력하세요", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Intent iiiintent= new Intent(getApplicationContext(), search_share.class);
-
                     iiiintent.putExtra("Cuser_id",Cuser_id);
                     iiiintent.putExtra("Cuser_authority",Cuser_authority);
                     iiiintent.putExtra("search_name",searchnameS);
@@ -95,58 +103,21 @@ public class share_show_list extends AppCompatActivity {
             }
         });
 
-
-
-    }
-
-    public void initDB(){
-
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("ShareBoard");
-
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
-
-                    int user_id=ds.child("user_id").getValue(Integer.class);
-                    String people_num = ds.child("people_num").getValue(String.class);
-                    String post_contents = ds.child("post_contents").getValue(String.class);
-                    String post_name = ds.child("post_name").getValue(String.class);
-                    int post_num = ds.child("post_num").getValue(Integer.class);
-                    String share_kind = ds.child("share_kind").getValue(String.class);
-                    String share_way = ds.child("share_way").getValue(String.class);
-                    String share_place = ds.child("share_place").getValue(String.class);
-
-
-                    Share_board s=new Share_board(post_num, post_name, post_contents,share_kind, share_way, share_place,user_id);
-                    slist.add(s);
-                    IAdapter.notifyDataSetChanged();
-                    IAdapter.addItem(s);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         Button share_write=(Button)findViewById(R.id.share_write);
         share_write.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //startActivity(new Intent(share_show_list.this,activity_writing_share.class));
+
                 if(Cuser_authority==1){
                     Intent iiintent= new Intent(getApplicationContext(), activity_writing_share.class);
 
-                    iiintent.putExtra("user_id",Cuser_id);
-                    iiintent.putExtra("user_authority",Cuser_authority);
+                    iiintent.putExtra("Cuser_id",Cuser_id);
+                    iiintent.putExtra("Cuser_authority",Cuser_authority);
 
                     startActivity(iiintent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -167,6 +138,38 @@ public class share_show_list extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void initDB(){
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("ShareBoard");
+
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()) {
+
+                    int user_id=ds.child("user_id").getValue(Integer.class);
+                    String post_contents = ds.child("post_contents").getValue(String.class);
+                    String post_name = ds.child("post_name").getValue(String.class);
+                    int post_num = ds.child("post_num").getValue(Integer.class);
+                    String share_kind = ds.child("share_kind").getValue(String.class);
+                    String share_way = ds.child("share_way").getValue(String.class);
+                    String share_place = ds.child("share_place").getValue(String.class);
+
+                    Share_board s=new Share_board(post_num, post_name, post_contents,share_kind, share_way, share_place,user_id);
+                    slist.add(s);
+                    IAdapter.notifyDataSetChanged();
+                    IAdapter.addItem(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void myStartActivity(Class c,int Cuser_id, int Cuser_authority) {

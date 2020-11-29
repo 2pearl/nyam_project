@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +17,13 @@ public class notice_detail extends AppCompatActivity {
     int post_num,Cuser_id,Cuser_authority,user_id;
     String postName;
     String postContents;
+
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), notice_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,7 @@ public class notice_detail extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -67,10 +73,11 @@ public class notice_detail extends AppCompatActivity {
                 if(Cuser_id==user_id){
                     Task<Void> Database = FirebaseDatabase.getInstance()
                             .getReference("/NoticeBoard/"+post_num).removeValue();
-                    startActivity(new Intent(notice_detail.this,notice_show_list.class));
+                    myStartActivity(notice_show_list.class,Cuser_id,Cuser_authority);
+
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
 
             }

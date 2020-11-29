@@ -17,9 +17,6 @@ import java.util.Map;
 
 public class Join_board extends Board implements Serializable {
 
-    //int user_authority;
-    //int user_id;
-
     String people_num;
     int post_num;
     String user_gender;
@@ -40,21 +37,6 @@ public class Join_board extends Board implements Serializable {
         this.user_gender=user_gender;
         this.user_id=user_id;
     }
-
-
-    /*public Join_board getcl(){
-        Join_board n = new Join_board();
-
-        n.
-        n.people_num=this.people_num;
-        n.post_num =this.post_num;
-        n.post_name=this.post_name;
-        n.post_contents=this.post_contents;
-        n.post_date=this.post_date;
-        n.user_gender=this.user_gender;
-
-        return n;
-    }*/
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();

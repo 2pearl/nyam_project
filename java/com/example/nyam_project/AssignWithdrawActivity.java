@@ -9,21 +9,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.Iterator;
-
-public class WithdrawActivity extends AppCompatActivity {
+public class AssignWithdrawActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     int Cuser_id,Cuser_authority;
@@ -31,15 +22,11 @@ public class WithdrawActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdrawuser);
+        setContentView(R.layout.activity_withdraw_admin);
 
         mAuth = FirebaseAuth.getInstance();
 
-        findViewById(R.id.withdrawuserButton).setOnClickListener(onClickListener);
-
-        Intent intent=getIntent();
-        Cuser_id=intent.getIntExtra("Cuser_id",0);
-        Cuser_authority=intent.getIntExtra("Cuser_authority",0);
+        findViewById(R.id.assignuseroutButton).setOnClickListener(onClickListener);
     }
 
     public void onStart() {
@@ -51,33 +38,20 @@ public class WithdrawActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.withdrawuserButton:
-                    withdraw();
+                case R.id.assignuseroutButton:
+                    withdraw_assign();
                     break;
             }
         }
     };
 
-    private void withdraw() {
-        mAuth.getCurrentUser().delete();
-        myStartActivity(MainActivity.class, Cuser_id, Cuser_authority);
+    private void withdraw_assign() {
+        //mAuth.getCurrentUser().delete();
 
-        String phone_num = ((EditText) findViewById(R.id.PhonenumWDEditText)).getText().toString();
+        String phone_num = ((EditText) findViewById(R.id.PhoneassignuserEditText)).getText().toString();
 
         FirebaseDatabase mDatabase;
         mDatabase = FirebaseDatabase.getInstance();
-
-        mDatabase.getReference().child("res_user").child(phone_num).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startToast("삭제 완료");
-            }
-        }).addOnFailureListener(new OnFailureListener(){
-            @Override
-            public void onFailure(@NonNull Exception e){
-                startToast("삭제 실패");
-            }
-        });
 
         mDatabase.getReference().child("std_user").child(phone_num).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -91,7 +65,7 @@ public class WithdrawActivity extends AppCompatActivity {
             }
         });
 
-
+        myStartActivity(ManageUserActivity.class, Cuser_id, Cuser_authority);
     }
 
     private void startToast(String msg) { Toast.makeText(this, msg, Toast.LENGTH_SHORT).show(); }

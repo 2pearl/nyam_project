@@ -34,6 +34,7 @@ public class signUpStdActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.signUpBtn).setOnClickListener(onClickListener);
+        findViewById(R.id.addimageBtn).setOnClickListener(onClickListener);
      //   findViewById(R.id.idCheckBtn).setOnClickListener(onClickListener);
     }
 
@@ -52,9 +53,9 @@ public class signUpStdActivity extends AppCompatActivity {
                 case R.id.signUpBtn:
                     signUp();
                     break;
-            //    case R.id.idCheckBtn:
-            //        idCheck();
-            //        break;
+                case R.id.addimageBtn:
+                    myStartActivity(uploadStdCardActivity.class);
+                    break;
 
             }
         }
@@ -93,7 +94,7 @@ public class signUpStdActivity extends AppCompatActivity {
                 });
 
         if(email.length() == 0 || password.length() == 0 || name.length() == 0 || stdNum.length() == 0 || phoneNum.length() == 0){
-            Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
         }
         else {
 

@@ -2,21 +2,17 @@ package com.example.nyam_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +29,20 @@ public class notice_show_list extends AppCompatActivity {
     int Cuser_id,Cuser_authority;
 
     EditText sname;
+
+    public void onBackPressed(){
+        switch (Cuser_authority){
+            case 0:
+                myStartActivity(AdminActivity.class,Cuser_id,Cuser_authority);
+                break;
+            case 1:
+                myStartActivity(StudentActivity.class,Cuser_id,Cuser_authority);
+                break;
+            case 2:
+                myStartActivity(RestaurantActivity.class,Cuser_id,Cuser_authority);
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +84,6 @@ public class notice_show_list extends AppCompatActivity {
         notice_write.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //startActivity(new Intent(notice_show_list.this,activity_writing_notice.class));
                 if(Cuser_authority==0){
                     Intent iiintent= new Intent(getApplicationContext(),activity_writing_notice.class);
 
@@ -84,7 +93,7 @@ public class notice_show_list extends AppCompatActivity {
                     startActivity(iiintent);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "권한이 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,8 +120,8 @@ public class notice_show_list extends AppCompatActivity {
 
                 String searchnameS=sname.getText().toString();
 
-                if(searchnameS==""||searchnameS==null){
-                    Toast.makeText(getApplicationContext(), "검색어를 입력하세요", Toast.LENGTH_LONG).show();
+                if(searchnameS.equals("")){
+                    Toast.makeText(getApplicationContext(), "검색어를 입력하세요", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Intent iiiintent= new Intent(getApplicationContext(), search_notice.class);
@@ -136,7 +145,6 @@ public class notice_show_list extends AppCompatActivity {
                 for(DataSnapshot ds : snapshot.getChildren()) {
 
                     int user_id=ds.child("user_id").getValue(Integer.class);
-                    String people_num = ds.child("people_num").getValue(String.class);
                     String post_contents = ds.child("post_contents").getValue(String.class);
                     String post_name = ds.child("post_name").getValue(String.class);
                     int post_num = ds.child("post_num").getValue(Integer.class);

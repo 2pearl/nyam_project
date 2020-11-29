@@ -2,7 +2,6 @@ package com.example.nyam_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,6 +28,13 @@ public class share_edit extends AppCompatActivity {
     EditText pname,pcontents,splace;
     Button button1;
 
+    public void onBackPressed(){
+        Intent iiiintent= new Intent(getApplicationContext(), share_show_list.class);
+        iiiintent.putExtra("Cuser_id",Cuser_id);
+        iiiintent.putExtra("Cuser_authority",Cuser_authority);
+        startActivity(iiiintent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,16 +45,16 @@ public class share_edit extends AppCompatActivity {
         Skindspinner = findViewById(R.id.Eskind);
         ArrayAdapter skindAdapter = ArrayAdapter.createFromResource(this, R.array.Skind, R.layout.spinner_item);
         skindAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Skindspinner.setAdapter(skindAdapter); //어댑터에 연결해줍니다.
+        Skindspinner.setAdapter(skindAdapter);
 
 
         Swayspinner = findViewById(R.id.Esway);
         ArrayAdapter swayAdapter = ArrayAdapter.createFromResource(this, R.array.Sway, R.layout.spinner_item);
         swayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Swayspinner.setAdapter(swayAdapter); //어댑터에 연결해줍니다.
+        Swayspinner.setAdapter(swayAdapter);
 
-        pname=(EditText) findViewById(R.id.Esname);//제목
-        pcontents=(EditText)findViewById(R.id.Escontents);//본문
+        pname=(EditText) findViewById(R.id.Esname);
+        pcontents=(EditText)findViewById(R.id.Escontents);
         splace=(EditText)findViewById(R.id.Esplace);
 
         Cuser_id=intent.getIntExtra("Cuser_id",0);
@@ -65,7 +69,7 @@ public class share_edit extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.Eseditb) ;
         button1.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View view) {//입력값 가져온다
+            public void onClick(View view) {
 
                 selectedSkind = Skindspinner.getSelectedItem().toString();
                 selectedSway = Swayspinner.getSelectedItem().toString();
@@ -75,21 +79,20 @@ public class share_edit extends AppCompatActivity {
                 String splaceS=splace.getText().toString();
 
                 if(pnameS.equals("")){
-                    Toast.makeText(share_edit.this,"제목을 입력해 주세요.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(share_edit.this,"제목을 입력해 주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else if(splaceS.equals("")){
-                    Toast.makeText(share_edit.this,"장소를 입력해 주세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(share_edit.this,"장소를 입력해 주세요",Toast.LENGTH_SHORT).show();
                 }
                 else if(pcontentsS.equals(""))   {
-                    Toast.makeText(share_edit.this,"내용을 입력해 주세요.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(share_edit.this,"내용을 입력해 주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     DatabaseReference Database = FirebaseDatabase.getInstance().getReference();
 
                     HashMap<String,Object> newpost=new HashMap();
 
-                    Share_board j=new Share_board(post_num,pnameS,pcontentsS,selectedSkind,selectedSway,splaceS,user_id); //String people_num, String user_gender, String post_date, String post_name, String post_contents
-
+                    Share_board j=new Share_board(post_num,pnameS,pcontentsS,selectedSkind,selectedSway,splaceS,user_id);
                     Map<String,Object> userValue=j.toMap();
 
                     newpost.put("/ShareBoard/"+post_num,userValue);
@@ -101,14 +104,8 @@ public class share_edit extends AppCompatActivity {
                     iiintent.putExtra("Cuser_authority",Cuser_authority);
 
                     startActivity(iiintent);
-                    //startActivity(new Intent(share_edit.this,share_show_list.class));
                 }
-
-
             }
         });
-
-
     }
-
 }
