@@ -48,7 +48,8 @@
                 android:id="@+id/textView12"
                 android:layout_width="54dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="#00000000" />
 
             <Button
                 android:id="@+id/buttonM_J"

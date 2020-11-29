@@ -38,19 +38,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/stdpostlistButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:background="#00FFFFFF"
-                android:gravity="left"
-                android:text="내가 쓴 글"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                app:backgroundTint="#FFFFFF" />
-
-            <Button
                 android:id="@+id/stdpwchangeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

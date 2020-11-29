@@ -4,46 +4,6 @@
         <item>남성</item>
         <item>여성</item>
     </string-array>
-    <string-array name="Clock">
-        <item>1시</item>
-        <item>2시</item>
-        <item>3시</item>
-        <item>4시</item>
-        <item>5시</item>
-        <item>6시</item>
-        <item>7시</item>
-        <item>8시</item>
-        <item>9시</item>
-        <item>10시</item>
-        <item>11시</item>
-        <item>12시</item>
-        <item>13시</item>
-        <item>14시</item>
-        <item>15시</item>
-        <item>16시</item>
-        <item>17시</item>
-        <item>18시</item>
-        <item>19시</item>
-        <item>20시</item>
-        <item>21시</item>
-        <item>22시</item>
-        <item>23시</item>
-        <item>24시</item>
-    </string-array>
-    <string-array name="Second">
-        <item>0분</item>
-        <item>5분</item>
-        <item>10분</item>
-        <item>15분</item>
-        <item>20분</item>
-        <item>25분</item>
-        <item>30분</item>
-        <item>35분</item>
-        <item>40분</item>
-        <item>45분</item>
-        <item>50분</item>
-        <item>55분</item>
-    </string-array>
     <string-array name="Pcount">
         <item>1</item>
         <item>2</item>
@@ -53,22 +13,23 @@
         <item>6</item>
     </string-array>
     <string-array name="Skind">
-        <item>나눔</item>
-        <item>종류가</item>
-        <item>뭘까</item>
-        <item>하</item>
+        <item>식품</item>
+        <item>의류</item>
+        <item>도서</item>
+        <item>가구</item>
+        <item>가전제품</item>
+        <item>기타</item>
     </string-array>
     <string-array name="Sway">
-        <item>나눔</item>
-        <item>방법이</item>
-        <item>뭘까</item>
-        <item>대면</item>
-        <item>택배</item>
+        <item>기프티콘</item>
+        <item>만나서</item>
+        <item>택배로</item>
     </string-array>
     <string-array name="Pkind">
-        <item>나눔</item>
-        <item>종류가</item>
-        <item>뭘까</item>
-        <item>하</item>
+        <item>신규 오픈</item>
+        <item>가격 할인</item>
+        <item>1+1 행사</item>
+        <item>SNS인증 이벤트</item>
+        <item>기타</item>
     </string-array>
 </resources>

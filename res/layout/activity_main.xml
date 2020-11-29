@@ -43,6 +43,10 @@
             android:id="@+id/firstloginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:text="로그인"
             app:backgroundTint="#DD9E9E" />
 
@@ -50,6 +54,10 @@
             android:id="@+id/stdsignupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:text="일반 회원가입"
             app:backgroundTint="#E8D291" />
 
@@ -57,6 +65,10 @@
             android:id="@+id/ressignupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:text="업체 회원가입"
             app:backgroundTint="#E8D291" />
 

@@ -16,7 +16,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/searchJoinback"
+                android:id="@+id/searchback_J"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

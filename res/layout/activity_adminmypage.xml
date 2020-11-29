@@ -37,19 +37,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/mypostBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:background="#00FFFFFF"
-                android:gravity="left"
-                android:text="내가 쓴 글"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                app:backgroundTint="#FFFFFF" />
-
-            <Button
                 android:id="@+id/adchangepwBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,19 +45,6 @@
                 android:background="#00FFFFFF"
                 android:gravity="left"
                 android:text="비밀번호 변경"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                app:backgroundTint="#FFFFFF" />
-
-            <Button
-                android:id="@+id/checkmemBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:background="#00FFFFFF"
-                android:gravity="left"
-                android:text="회원 승인"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:backgroundTint="#FFFFFF" />

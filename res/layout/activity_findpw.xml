@@ -19,7 +19,7 @@
             android:layout_marginLeft="35dp"
             android:background="#FFFFFF"
             android:gravity="bottom|center|left"
-            android:text="회원 탈퇴"
+            android:text="PW 찾기"
             android:textColor="#000000"
             android:textSize="30sp" />
 
@@ -36,8 +36,8 @@
             android:background="#FFFFFF"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
+            <EditText
+                android:id="@+id/editTextemailfindpw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -45,46 +45,35 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:text="회원 탈퇴합니다."
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textColor="#000000"
+                android:textColorHint="#414141"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView6"
+            <EditText
+                android:id="@+id/editTextfindpwphonenum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:text="사용자의 개인정보는 탈퇴 후 즉시 삭제됩니다."
-                android:textColor="#5F5F5F" />
-
-            <EditText
-                android:id="@+id/PhonenumWDEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:ems="10"
-                android:hint="전화번호를 입력하세요."
+                android:hint="전화번호"
                 android:inputType="phone"
                 android:textColor="#000000"
-                android:textColorHint="#4D4D4D" />
+                android:textColorHint="#414141"
+                android:textSize="24sp" />
 
             <Button
-                android:id="@+id/withdrawuserButton"
+                android:id="@+id/findpwfinishButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:background="#FFFFFF"

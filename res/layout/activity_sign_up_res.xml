@@ -44,12 +44,11 @@
                 android:textColorHint="#414141" />
 
             <Button
-                android:id="@+id/idCheckBtn"
+                android:id="@+id/resEmailCheckBtn"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="중복확인"
-                app:backgroundTint="#DD9E9E" />
+                android:background="#DD9E9E"
+                android:text="인증" />
 
         </LinearLayout>
 
@@ -68,14 +67,6 @@
                 android:inputType="textPassword"
                 android:textColor="#000000"
                 android:textColorHint="#414141" />
-
-            <Button
-                android:id="@+id/passwordCheckBtn"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="양식확인"
-                app:backgroundTint="#DD9E9E" />
 
         </LinearLayout>
 
